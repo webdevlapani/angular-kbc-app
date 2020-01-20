@@ -1,0 +1,105 @@
+<div class="questionPage" *ngIf="!showResult">
+    <div fxLayout="row" fxLayoutAlign="center center">
+        <div>
+            <mat-card class="example-card">
+                <mat-card-header>
+                    <mat-card-title>Life Line</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <div fxLayout="row" fxLayoutAlign="center">
+                        <button mat-raised-button [color]="ll.isUse ? 'warn' : ''" *ngFor="let ll of lifeLine" (click)="onLifeLine(ll)">{{ll.name}}</button>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div>
+            <mat-card class="example-card">
+                <mat-card-header>
+                    <mat-card-title>Question Point.</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <h1>
+                       {{question.rs}}
+                    </h1>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div>
+            <mat-card class="example-card">
+                <mat-card-header>
+                    <mat-card-title>Win Point.</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <h1>
+                        {{winPoint}}
+                    </h1>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div>
+            <mat-card class="example-card">
+                <mat-card-header>
+                    <mat-card-title>Total Point.</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <h1>
+                        {{totalPoint}}
+                    </h1>
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+    </div>
+
+
+    <div>
+        <mat-card class="example-card">
+            <mat-card-header>
+                <mat-card-title> {{currentQuestion + 1}} :  {{question.name}}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <div fxLayout="row" fxLayoutAlign="center">
+                    <button mat-raised-button *ngIf="hideOption.length && hideOption.includes('optionA')" [disabled]="question.isAnswer!='' && (question.isAnswer!= 'optionA' && question.ans!='optionA')" (click)="onAnswerClick('optionA')" [ngClass]="question.ans == 'optionA' && question.isTrue === true ? 'right' : question.isAnswer === 'optionA' ? 'wrong' : question.ans == 'optionA' && question.isAnswer !='' ? 'right' : '' ">{{question.optionA}}</button>
+                    <button mat-raised-button *ngIf="hideOption.includes('optionB')" [disabled]="question.isAnswer!='' && (question.isAnswer!= 'optionB' && question.ans!='optionB')" (click)="onAnswerClick('optionB')" [ngClass]="question.ans == 'optionB' && question.isTrue === true ? 'right' : question.isAnswer === 'optionB' ? 'wrong' : question.ans == 'optionB' && question.isAnswer !='' ? 'right' : '' ">{{question.optionB}}</button>
+                    <button mat-raised-button *ngIf="hideOption.includes('optionC')" [disabled]="question.isAnswer!='' && (question.isAnswer!= 'optionC' && question.ans!='optionC')" (click)="onAnswerClick('optionC')" [ngClass]="question.ans == 'optionC' && question.isTrue === true ? 'right' : question.isAnswer === 'optionC'? 'wrong' : question.ans == 'optionC' && question.isAnswer !='' ? 'right' : '' ">{{question.optionC}}</button>
+                    <button mat-raised-button *ngIf="hideOption.includes('optionD')" [disabled]="question.isAnswer!='' && (question.isAnswer!= 'optionD' && question.ans!='optionD')" (click)="onAnswerClick('optionD')" [ngClass]="question.ans == 'optionD' && question.isTrue === true ? 'right' : question.isAnswer === 'optionD' ? 'wrong' : question.ans == 'optionD' && question.isAnswer !='' ? 'right' : '' ">{{question.optionD}}</button>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <button mat-raised-button *ngIf="!showResultButton" [disabled]="!question.isAnswer" (click)="onNextQuestion()"> Next Question</button>
+    <button mat-raised-button *ngIf="showResultButton" [disabled]="!question.isAnswer"  (click)="displayResult()">Show Result</button>
+</div>
+<div class="questionPage" *ngIf="showResult">
+    <div fxLayout="row" fxLayoutAlign="center center">
+        <div>
+            <mat-card class="example-card">
+                <mat-card-header>
+                    <mat-card-title>Your Point.</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <h1>
+                        {{winPoint}}
+                    </h1>
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+        <div>
+            <mat-card class="example-card">
+                <mat-card-header>
+                    <mat-card-title>Total Point.</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <h1>
+                        {{totalPoint}}
+                    </h1>
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+
+    </div>
+
+    <button mat-raised-button (click)="onRestart()"> Restart</button>
+</div>
